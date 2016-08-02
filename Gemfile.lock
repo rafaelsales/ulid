@@ -1,0 +1,40 @@
+PATH
+  remote: .
+  specs:
+    ulid (0.0.1)
+      sysrandom (>= 1.0.0, < 2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (9.0.5)
+    coderay (1.1.1)
+    metaclass (0.0.4)
+    method_source (0.8.2)
+    minitest (5.9.0)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.0)
+      byebug (~> 9.0)
+      pry (~> 0.10)
+    rake (10.5.0)
+    slop (3.6.0)
+    sysrandom (1.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.12.5)
+  minitest
+  mocha
+  pry-byebug
+  rake (~> 10.0)
+  ulid!
+
+BUNDLED WITH
+   1.12.5
