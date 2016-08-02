@@ -105,23 +105,10 @@ r is Randomness
 ## Test Suite
 
 ```
-# TODO
+bundle exec rake test
 ```
 
-## Performance
+Credits and references:
 
-```
-# TODO
-```
-
-```
-ulid
-336,331,131 op/s » encodeTime
-102,041,736 op/s » encodeRandom
-17,408 op/s » generate
-
-
-Suites:  1
-Benches: 3
-Elapsed: 7,285.75 ms
-```
+* https://github.com/alizain/ulid
+* https://github.com/ulid-org/spec
