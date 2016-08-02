@@ -4,7 +4,7 @@ module ULID
   class Generator
     ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
 
-    def random_create
+    def generate
       encode_time(milliseconds_since_epoch, 10) + encode_random(16)
     end
 

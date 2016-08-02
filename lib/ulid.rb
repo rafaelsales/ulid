@@ -1,6 +1,6 @@
 module ULID
-  def self.random_create
-    Generator.new.random_create
+  def self.generate
+    Generator.new.generate
   end
 end
 
