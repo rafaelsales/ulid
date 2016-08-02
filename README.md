@@ -108,7 +108,7 @@ r is Randomness
 bundle exec rake test
 ```
 
-Credits and references:
+### Credits and references:
 
 * https://github.com/alizain/ulid
 * https://github.com/ulid-org/spec
