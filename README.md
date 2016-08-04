@@ -42,7 +42,7 @@ gem install ulid
 ```ruby
 require 'ulid'
 
-ULID.generate // 01ARZ3NDEKTSV4RRFFQ69G5FAV
+ULID.generate # 01ARZ3NDEKTSV4RRFFQ69G5FAV
 ```
 
 ## Specification
