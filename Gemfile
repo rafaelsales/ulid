@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in capistrano-pg_sync.gemspec
 gemspec
 
 group :development, :test do
