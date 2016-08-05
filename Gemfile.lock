@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ulid (0.0.1)
+    ulid (0.0.2)
       sysrandom (>= 1.0.0, < 2.0)
 
 GEM
@@ -29,7 +29,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.12.5)
   minitest
   mocha
   pry-byebug
