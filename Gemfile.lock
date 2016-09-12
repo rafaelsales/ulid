@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ulid (0.0.2)
+    ulid (0.0.3)
       sysrandom (>= 1.0.0, < 2.0)
 
 GEM

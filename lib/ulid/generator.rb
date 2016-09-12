@@ -2,7 +2,7 @@ require 'sysrandom'
 
 module ULID
   class Generator
-    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ' # Crockford's Base32
+    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.freeze # Crockford's Base32
     TIME_LENGTH = 10
     RANDOM_LENGTH = 16
 
@@ -22,7 +22,7 @@ module ULID
     end
 
     def encode_random(length)
-      length.times.reduce("") do |output|
+      length.times.reduce('') do |output|
         random = Sysrandom.random_number(ENCODING.length)
 
         output << ENCODING[random]
