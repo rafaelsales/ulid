@@ -25,11 +25,11 @@ describe ULID do
   
   it "encodes the timestamp in the high 48 bits" do
     Timecop.freeze do
-      now = Time.now
+      now_100usec = Time.now_100usec
       ulid = ULID.generate
       decoded = Base32.decode(ulid)
       ts = ("\x0\x0" + decoded[0...6]).unpack("Q>").first
-      assert ts == (now.to_f * 10_000).to_i
+      assert ts == now_100usec
     end
   end
 

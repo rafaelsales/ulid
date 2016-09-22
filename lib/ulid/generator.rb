@@ -27,7 +27,7 @@ module ULID
     end
 
     def forty_eight_bit_time
-      hundred_micro_time = (Time.now.to_f * 10_000).to_i
+      hundred_micro_time = Time.now_100usec
       [hundred_micro_time].pack("Q>")[2..-1]
     end
 
