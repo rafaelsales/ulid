@@ -3,34 +3,36 @@ require 'sysrandom'
 module ULID
   class Generator
     ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ' # Crockford's Base32
-    TIME_LENGTH = 10
-    RANDOM_LENGTH = 16
+    RANDOM_BYTES = 10
+    ENCODED_LENGTH = 26
+
+    MASK = 0x1f
 
     def generate
-      encode_time(milliseconds_since_epoch, TIME_LENGTH) + encode_random(RANDOM_LENGTH)
+      input = octo_word
+      (1..ENCODED_LENGTH).to_a.reduce("") do |s, n|
+        s + ENCODING[(input >> (128 - 5*n)) & MASK]
+      end
     end
 
     private
 
-    def encode_time(now, length)
-      length.times.reduce('') do |output|
-        mod = now % ENCODING.length
-        now = (now - mod) / ENCODING.length
-
-        output << ENCODING[mod]
-      end.reverse
+    def octo_word
+      (hi, lo) = genbytes.unpack("Q>Q>")
+      (hi << 64) | lo
     end
 
-    def encode_random(length)
-      length.times.reduce("") do |output|
-        random = Sysrandom.random_number(ENCODING.length)
-
-        output << ENCODING[random]
-      end.reverse
+    def genbytes
+      forty_eight_bit_time + random_bytes
     end
 
-    def milliseconds_since_epoch
-      (Time.now.to_f * 1000).to_i
+    def forty_eight_bit_time
+      hundred_micro_time = (Time.now.to_f * 10_000).to_i
+      [hundred_micro_time].pack("Q>")[2..-1]
+    end
+
+    def random_bytes
+      Sysrandom.random_bytes(RANDOM_BYTES)
     end
   end
 end
