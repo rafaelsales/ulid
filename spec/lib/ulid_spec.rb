@@ -19,29 +19,32 @@ describe ULID do
       end
       assert ulid_2 > ulid_1
     end
+
+    it "is valid Crockford Base32" do
+      Base32.table = ULID::Generator::ENCODING
+      ulid = ULID.generate
+      decoded = Base32.decode(ulid)
+      encoded = Base32.encode(decoded)[0...26]
+      assert encoded == ulid
+    end
   end
 
   describe "underlying binary" do
-    before do
-      Base32.table = ULID::Generator::ENCODING
-    end
 
     it "encodes the timestamp in the high 48 bits" do
       Timecop.freeze do
         now_100usec = Time.now_100usec
-        ulid = ULID.generate
-        decoded = Base32.decode(ulid)
-        ts = ("\x0\x0" + decoded[0...6]).unpack("Q>").first
+        bytes = ULID.generate_bytes
+        ts = ("\x0\x0" + bytes[0...6]).unpack("Q>").first
         assert ts == now_100usec
       end
     end
 
     it "encodes the remaining 80 bits as random" do
       random_bytes = Sysrandom.random_bytes(ULID::Generator::RANDOM_BYTES)
-      ULID::Generator.any_instance.stubs(:random_bytes).returns(random_bytes)
-      ulid = ULID.generate
-      decoded = Base32.decode(ulid)
-      assert decoded[6..-1] == random_bytes
+      ULID.stubs(:random_bytes).returns(random_bytes)
+      bytes = ULID.generate_bytes
+      assert bytes[6..-1] == random_bytes
     end
   end
 
