@@ -5,13 +5,16 @@ module ULID
     ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ' # Crockford's Base32
     RANDOM_BYTES = 10
     ENCODED_LENGTH = 26
+    BIT_LENGTH = 128
+    BITS_PER_B32_CHAR = 5
 
     MASK = 0x1f
 
     def generate
       input = octo_word
       (1..ENCODED_LENGTH).to_a.reduce("") do |s, n|
-        s + ENCODING[(input >> (128 - 5*n)) & MASK]
+        shift = BIT_LENGTH - BITS_PER_B32_CHAR * n
+        s + ENCODING[(input >> shift) & MASK]
       end
     end
 
@@ -23,10 +26,10 @@ module ULID
     end
 
     def genbytes
-      forty_eight_bit_time + random_bytes
+      time_48bit + random_bytes
     end
 
-    def forty_eight_bit_time
+    def time_48bit
       hundred_micro_time = Time.now_100usec
       [hundred_micro_time].pack("Q>")[2..-1]
     end
