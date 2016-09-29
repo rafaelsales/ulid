@@ -10,4 +10,6 @@ end
 group :test do
   gem "minitest"
   gem "mocha"
+  gem "timecop"
+  gem "base32"
 end
