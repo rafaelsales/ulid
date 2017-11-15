@@ -11,5 +11,5 @@ group :test do
   gem "minitest"
   gem "mocha"
   gem "timecop"
-  gem "base32"
+  gem "base32-crockford"
 end
