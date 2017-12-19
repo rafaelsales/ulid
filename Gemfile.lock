@@ -7,7 +7,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    base32 (0.3.2)
+    base32-crockford (0.1.0)
     byebug (9.0.5)
     coderay (1.1.1)
     metaclass (0.0.4)
@@ -31,7 +31,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  base32
+  base32-crockford
   minitest
   mocha
   pry-byebug
@@ -40,4 +40,4 @@ DEPENDENCIES
   ulid!
 
 BUNDLED WITH
-   1.12.5
+   1.16.0

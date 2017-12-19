@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'timecop'
-require 'base32'
+require 'base32/crockford'
 
 describe ULID do
   describe "textual representation" do
@@ -21,22 +21,30 @@ describe ULID do
     end
 
     it "is valid Crockford Base32" do
-      Base32.table = ULID::Generator::ENCODING
       ulid = ULID.generate
-      decoded = Base32.decode(ulid)
-      encoded = Base32.encode(decoded)[0...26]
-      assert encoded == ulid
+      decoded = Base32::Crockford.decode(ulid)
+      encoded = Base32::Crockford.encode(decoded, length: 26)
+      assert_equal ulid, encoded
+    end
+
+    it "encodes the timestamp in the first 10 characters" do
+      # test case taken from original ulid README:
+      # https://github.com/alizain/ulid#seed-time
+      Timecop.freeze(Time.at(1469918176.385)) do
+        ulid = ULID.generate(Time.at(1469918176.385))
+        assert_equal "01ARYZ6S41", ulid[0...10]
+      end
     end
   end
 
   describe "underlying binary" do
-
     it "encodes the timestamp in the high 48 bits" do
-      Timecop.freeze do
-        now_100usec = Time.now_100usec
+      input_time = Time.now.utc
+      Timecop.freeze(input_time)  do
         bytes = ULID.generate_bytes
-        ts = ("\x0\x0" + bytes[0...6]).unpack("Q>").first
-        assert ts == now_100usec
+        (time_ms,) = "\x0\x0#{bytes[0...6]}".unpack("Q>")
+        encoded_time = Time.at(time_ms / 1000.0).utc
+        assert_in_delta input_time, encoded_time, 0.001
       end
     end
 
@@ -47,5 +55,4 @@ describe ULID do
       assert bytes[6..-1] == random_bytes
     end
   end
-
 end
