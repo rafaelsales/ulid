@@ -2,7 +2,7 @@ require 'sysrandom'
 
 module ULID
   module Generator
-    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ' # Crockford's Base32
+    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.freeze # Crockford's Base32
     RANDOM_BYTES = 10
     ENCODED_LENGTH = 26
     BIT_LENGTH = 128
@@ -23,7 +23,7 @@ module ULID
     private
 
     def encode(n, length)
-      e = "0" * length
+      e = '0' * length
       i = length - 1
 
       while n > 0
@@ -36,13 +36,13 @@ module ULID
     end
 
     def octo_word(time = Time.now)
-      (hi, lo) = generate_bytes(time).unpack("Q>Q>")
+      (hi, lo) = generate_bytes(time).unpack('Q>Q>')
       (hi << 64) | lo
     end
 
     def time_48bit(time = Time.now)
       time_ms = (time.to_f * 1000).to_i
-      [time_ms].pack("Q>")[2..-1]
+      [time_ms].pack('Q>')[2..-1]
     end
 
     def random_bytes

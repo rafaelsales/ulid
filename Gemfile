@@ -3,13 +3,14 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem "rake", "~> 10.0"
-  gem "pry-byebug"
+  gem 'pry-byebug'
+  gem 'rake'
+  gem 'rubocop'
 end
 
 group :test do
-  gem "minitest"
-  gem "mocha"
-  gem "timecop"
-  gem "base32-crockford"
+  gem 'base32-crockford'
+  gem 'minitest'
+  gem 'mocha'
+  gem 'timecop'
 end

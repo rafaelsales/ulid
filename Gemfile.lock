@@ -1,31 +1,45 @@
 PATH
   remote: .
   specs:
-    ulid (0.1.0)
+    ulid (1.0.0)
       sysrandom (>= 1.0.0, < 2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    ast (2.3.0)
     base32-crockford (0.1.0)
-    byebug (9.0.5)
-    coderay (1.1.1)
+    byebug (9.1.0)
+    coderay (1.1.2)
     metaclass (0.0.4)
-    method_source (0.8.2)
-    minitest (5.9.0)
-    mocha (1.1.0)
+    method_source (0.9.0)
+    minitest (5.10.3)
+    mocha (1.3.0)
       metaclass (~> 0.0.1)
-    pry (0.10.4)
+    parallel (1.12.0)
+    parser (2.4.0.0)
+      ast (~> 2.2)
+    powerpack (0.1.1)
+    pry (0.11.3)
       coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry-byebug (3.4.0)
-      byebug (~> 9.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.5.1)
+      byebug (~> 9.1)
       pry (~> 0.10)
+    rainbow (2.2.2)
+      rake
     rake (10.5.0)
-    slop (3.6.0)
-    sysrandom (1.0.3)
-    timecop (0.8.1)
+    rubocop (0.50.0)
+      parallel (~> 1.10)
+      parser (>= 2.3.3.1, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 2.2.2, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.8.3)
+    sysrandom (1.0.5)
+    timecop (0.9.1)
+    unicode-display_width (1.3.0)
 
 PLATFORMS
   ruby
@@ -35,7 +49,8 @@ DEPENDENCIES
   minitest
   mocha
   pry-byebug
-  rake (~> 10.0)
+  rake
+  rubocop
   timecop
   ulid!
 

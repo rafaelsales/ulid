@@ -1,0 +1,23 @@
+Style/Documentation:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+Metrics/AbcSize:
+  Enabled: false
+
+BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Enabled: false
+
+Lint/RescueWithoutErrorClass:
+  Enabled: false
