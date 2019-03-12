@@ -1,4 +1,8 @@
-require 'securerandom'
+if RUBY_VERSION >= '2.5'
+  require 'securerandom'
+else
+  require 'sysrandom/securerandom'
+end
 
 module ULID
   module Generator
