@@ -1,4 +1,8 @@
-require 'sysrandom'
+if RUBY_VERSION >= '2.5'
+  require 'securerandom'
+else
+  require 'sysrandom/securerandom'
+end
 
 module ULID
   module Generator
@@ -46,7 +50,7 @@ module ULID
     end
 
     def random_bytes
-      Sysrandom.random_bytes(RANDOM_BYTES)
+      SecureRandom.random_bytes(RANDOM_BYTES)
     end
   end
 end

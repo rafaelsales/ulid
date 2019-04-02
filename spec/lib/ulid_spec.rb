@@ -49,7 +49,7 @@ describe ULID do
     end
 
     it 'encodes the remaining 80 bits as random' do
-      random_bytes = Sysrandom.random_bytes(ULID::Generator::RANDOM_BYTES)
+      random_bytes = SecureRandom.random_bytes(ULID::Generator::RANDOM_BYTES)
       ULID.stubs(:random_bytes).returns(random_bytes)
       bytes = ULID.generate_bytes
       assert bytes[6..-1] == random_bytes
