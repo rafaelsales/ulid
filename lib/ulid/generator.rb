@@ -1,3 +1,5 @@
+# frozen-string-literal: true
+
 if RUBY_VERSION >= '2.5'
   require 'securerandom'
 else
@@ -36,7 +38,7 @@ module ULID
         i -= 1
       end
 
-      e.pack('c*'.freeze)
+      e.pack('c*')
     end
 
     def octo_word(time = Time.now)
