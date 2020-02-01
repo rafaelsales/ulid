@@ -6,7 +6,7 @@ end
 
 module ULID
   module Generator
-    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.freeze # Crockford's Base32
+    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.bytes.freeze # Crockford's Base32
     RANDOM_BYTES = 10
     ENCODED_LENGTH = 26
     BIT_LENGTH = 128
@@ -27,7 +27,7 @@ module ULID
     private
 
     def encode(input, length)
-      e = '0' * length
+      e = Array.new(length, 48) # '0'.ord
       i = length - 1
 
       while input > 0
@@ -36,7 +36,7 @@ module ULID
         i -= 1
       end
 
-      e
+      e.pack('c*'.freeze)
     end
 
     def octo_word(time = Time.now)
