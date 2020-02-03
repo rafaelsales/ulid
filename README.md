@@ -10,6 +10,7 @@ Universally Unique Lexicographically Sortable Identifier implementation for Ruby
 	<br>
 </h1>
 
+![Ruby](https://github.com/rafaelsales/ulid/workflows/Ruby/badge.svg)
 [![Gem Downloads](http://img.shields.io/gem/dt/ulid.svg)](https://rubygems.org/gems/ulid)
 [![GitHub License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/rafaelsales/ulid)
 
