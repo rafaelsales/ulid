@@ -26,13 +26,13 @@ module ULID
 
     private
 
-    def encode(n, length)
+    def encode(input, length)
       e = '0' * length
       i = length - 1
 
-      while n > 0
-        e[i] = ENCODING[n & MASK]
-        n >>= 5
+      while input > 0
+        e[i] = ENCODING[input & MASK]
+        input >>= 5
         i -= 1
       end
 

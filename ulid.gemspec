@@ -1,5 +1,4 @@
-
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ulid/version'
 
@@ -17,8 +16,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.post_install_message = %q[
+  spec.post_install_message = '
 ulid gem needs to install sysrandom gem if you use Ruby 2.4 or older.
 Execute `gem install sysrandom` or add `gem "sysrandom"` to Gemfile.
-]
+'
 end

@@ -10,7 +10,6 @@ describe ULID do
     end
 
     it 'is sortable' do
-      ulid1, ulid2 = nil
       input_time = Time.now
       ulid1 = ULID.generate(input_time)
       ulid2 = ULID.generate(input_time + 1)
