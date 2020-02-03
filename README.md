@@ -5,6 +5,8 @@
 # ulid
 Universally Unique Lexicographically Sortable Identifier implementation for Ruby
 
+Official specification page: https://github.com/ulid/spec
+
 <h1 align="center">
 	<br>
 	<br>
