@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ulid (1.0.0)
+    ulid (1.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -53,4 +53,4 @@ DEPENDENCIES
   ulid!
 
 BUNDLED WITH
-   1.17.3
+   2.0.1
