@@ -13,6 +13,7 @@ module ULID
     ENCODED_LENGTH = 26
     BIT_LENGTH = 128
     BITS_PER_B32_CHAR = 5
+    ZERO = '0'.ord
 
     MASK = 0x1f
 
@@ -29,7 +30,7 @@ module ULID
     private
 
     def encode(input, length)
-      e = Array.new(length, 48) # '0'.ord
+      e = Array.new(length, ZERO)
       i = length - 1
 
       while input > 0
