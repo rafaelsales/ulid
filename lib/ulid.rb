@@ -1,4 +1,5 @@
-Dir.glob(File.join(File.dirname(__FILE__), '/**/*.rb')).sort.each { |f| require f }
+require 'ulid/version'
+require 'ulid/generator'
 
 module ULID
   extend Generator
