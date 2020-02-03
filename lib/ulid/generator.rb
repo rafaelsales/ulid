@@ -1,3 +1,5 @@
+# frozen-string-literal: true
+
 if RUBY_VERSION >= '2.5'
   require 'securerandom'
 else
@@ -6,11 +8,12 @@ end
 
 module ULID
   module Generator
-    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.freeze # Crockford's Base32
+    ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.bytes.freeze # Crockford's Base32
     RANDOM_BYTES = 10
     ENCODED_LENGTH = 26
     BIT_LENGTH = 128
     BITS_PER_B32_CHAR = 5
+    ZERO = '0'.ord
 
     MASK = 0x1f
 
@@ -27,7 +30,7 @@ module ULID
     private
 
     def encode(input, length)
-      e = '0' * length
+      e = Array.new(length, ZERO)
       i = length - 1
 
       while input > 0
@@ -36,7 +39,7 @@ module ULID
         i -= 1
       end
 
-      e
+      e.pack('c*')
     end
 
     def octo_word(time = Time.now)
