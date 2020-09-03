@@ -48,7 +48,7 @@ module ULID
     end
 
     def time_48bit(time = Time.now)
-      time_ms = (time.to_f * 1000).to_i
+      time_ms = (time.to_f * 1000).round
       [time_ms].pack('Q>')[2..-1]
     end
 

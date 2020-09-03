@@ -29,6 +29,16 @@ describe ULID do
       ulid = ULID.generate(Time.at(1_469_918_176.385))
       assert_equal '01ARYZ6S41', ulid[0...10]
     end
+
+    it 'respects millisecond-precision order' do
+      ulids = Array.new(1000) do |millis|
+        time = Time.new(2020, 1, 2, 3, 4, Rational(millis, 10**3))
+
+        ULID.generate(time)
+      end
+
+      assert_equal(ulids, ulids.sort)
+    end
   end
 
   describe 'underlying binary' do
