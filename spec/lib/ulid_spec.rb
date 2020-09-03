@@ -26,7 +26,17 @@ describe ULID do
     it 'encodes the timestamp in the first 10 characters' do
       # test case taken from original ulid README:
       # https://github.com/alizain/ulid#seed-time
-      ulid = ULID.generate(Time.at(1_469_918_176.385))
+      #
+      # N.b. we avoid specifying the time as a float, since we lose precision:
+      #
+      # > Time.at(1_469_918_176.385).strftime("%F %T.%N")
+      # => "2016-07-30 23:36:16.384999990"
+      #
+      # vs the correct:
+      #
+      # > Time.at(1_469_918_176, 385, :millisecond).strftime("%F %T.%N")
+      # => "2016-07-30 23:36:16.385000000"
+      ulid = ULID.generate(Time.at(1_469_918_176, 385, :millisecond))
       assert_equal '01ARYZ6S41', ulid[0...10]
     end
 
