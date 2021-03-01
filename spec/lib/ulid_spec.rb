@@ -25,7 +25,7 @@ describe ULID do
 
     it 'encodes the timestamp in the first 10 characters' do
       # test case taken from original ulid README:
-      # https://github.com/alizain/ulid#seed-time
+      # https://github.com/ulid/javascript#seed-time
       #
       # N.b. we avoid specifying the time as a float, since we lose precision:
       #

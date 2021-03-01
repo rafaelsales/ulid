@@ -113,4 +113,4 @@ bundle exec rake test
 
 ### Credits and references:
 
-* https://github.com/alizain/ulid
+* https://github.com/ulid/javascript
