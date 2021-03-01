@@ -48,7 +48,18 @@ module ULID
     end
 
     def time_48bit(time = Time.now)
-      time_ms = (time.to_f * 1000).to_i
+      # Avoid `time.to_f` since we want to accurately represent a whole number of milliseconds:
+      #
+      # > time = Time.new(2020, 1, 5, 7, 3, Rational(2, 1000))
+      # => 2020-01-05 07:03:00 +0000
+      # > (time.to_f * 1000).to_i
+      # => 1578207780001
+      #
+      # vs
+      #
+      # > (time.to_r * 1000).to_i
+      # => 1578207780002
+      time_ms = (time.to_r * 1000).to_i
       [time_ms].pack('Q>')[2..-1]
     end
 
