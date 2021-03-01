@@ -57,9 +57,9 @@ module ULID
       #
       # vs
       #
-      # > time.to_i * 1000 + time.usec / 1000
+      # > (time.to_r * 1000).to_i
       # => 1578207780002
-      time_ms = time.to_i * 1000 + time.usec / 1000
+      time_ms = (time.to_r * 1000).to_i
       [time_ms].pack('Q>')[2..-1]
     end
 
