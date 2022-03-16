@@ -68,4 +68,31 @@ describe ULID do
       end
     end
   end
+
+  describe 'decoding a timestamp' do
+    it 'decodes the timestamp as Time' do
+      ulid = ULID.generate
+      assert ULID.decode_time(ulid).is_a?(Time)
+    end
+
+    it 'decodes the timestamp into milliseconds' do
+      input_time = Time.now.utc
+      ulid = ULID.generate(input_time)
+      output_time = ULID.decode_time(ulid).utc
+      assert_equal (input_time.to_f * 1000).to_i, (output_time.to_f * 1000).to_i
+    end
+
+    it 'rejects strings with invalid characters' do
+      assert_raises(ArgumentError) do
+        bad_ulid = ULID.generate.tr('0', '-')
+        ULID.decode_time(bad_ulid)
+      end
+    end
+
+    it 'rejects strings of incorrect length' do
+      assert_raises(ArgumentError) do
+        ULID.decode_time(ULID.generate + 'f')
+      end
+    end
+  end
 end
