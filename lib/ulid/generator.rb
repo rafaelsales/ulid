@@ -17,14 +17,15 @@ module ULID
 
     MASK = 0x1f
 
-    def generate(time = Time.now)
-      input = octo_word(time)
+    def generate(time = Time.now, name = nil)
+      input = octo_word(time, name)
 
       encode(input, ENCODED_LENGTH)
     end
 
-    def generate_bytes(time = Time.now)
-      time_48bit(time) + random_bytes
+    def generate_bytes(time = Time.now, name = nil)
+      name_bytes = name.split('').map { |e| e.to_i(32) }.pack('C*') if name
+      time_48bit(time) + (name_bytes || random_bytes)
     end
 
     private
@@ -42,8 +43,11 @@ module ULID
       e.pack('c*')
     end
 
-    def octo_word(time = Time.now)
-      (hi, lo) = generate_bytes(time).unpack('Q>Q>')
+    def octo_word(time = Time.now, name = nil)
+      (hi, lo) = generate_bytes(time, name).unpack('Q>Q>')
+      if hi.nil? || lo.nil?
+        raise ArgumentError, 'name string without hex encoding passed to ULID generator'
+      end
       (hi << 64) | lo
     end
 
