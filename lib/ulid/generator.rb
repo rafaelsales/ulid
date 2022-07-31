@@ -1,10 +1,6 @@
 # frozen-string-literal: true
 
-if RUBY_VERSION >= '2.5'
-  require 'securerandom'
-else
-  require 'sysrandom/securerandom'
-end
+require 'securerandom'
 
 module ULID
   module Generator
