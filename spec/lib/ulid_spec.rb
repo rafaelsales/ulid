@@ -49,6 +49,39 @@ describe ULID do
 
       assert_equal(ulids, ulids.sort)
     end
+
+    it 'is deterministic based on time' do
+      input_time = Time.now
+      ulid1 = ULID.generate(input_time)
+      ulid2 = ULID.generate(input_time)
+      assert_equal ulid2.slice(0, 10), ulid1.slice(0, 10)
+      assert ulid2 != ulid1
+    end
+
+    it 'is deterministic based on event name' do
+      input_time = Time.now
+      input_event = SecureRandom.uuid
+      ulid1 = ULID.generate(input_time, input_event)
+      ulid2 = ULID.generate(input_time + 1, input_event)
+      assert_equal ulid2.slice(10, 26), ulid1.slice(10, 26)
+      assert ulid2 != ulid1
+    end
+
+    it 'is fully deterministic based on time and name' do
+      input_time = Time.now
+      input_event = SecureRandom.uuid
+      ulid1 = ULID.generate(input_time, input_event)
+      ulid2 = ULID.generate(input_time, input_event)
+      assert_equal ulid2, ulid1
+    end
+
+    it 'raises exception when non-encodable name string is used' do
+      input_time = Time.now
+      input_event = 'foobar'
+      assert_raises(ArgumentError) do
+        ULID.generate(input_time, input_event)
+      end
+    end
   end
 
   describe 'underlying binary' do
