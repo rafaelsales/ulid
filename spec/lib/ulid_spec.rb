@@ -58,29 +58,31 @@ describe ULID do
       assert ulid2 != ulid1
     end
 
-    it 'is deterministic based on event name' do
+    it 'is deterministic based on suffix' do
       input_time = Time.now
-      input_event = SecureRandom.uuid
-      ulid1 = ULID.generate(input_time, input_event)
-      ulid2 = ULID.generate(input_time + 1, input_event)
+      suffix = SecureRandom.uuid
+      ulid1 = ULID.generate(input_time, suffix: suffix)
+      ulid2 = ULID.generate(input_time + 1, suffix: suffix)
       assert_equal ulid2.slice(10, 26), ulid1.slice(10, 26)
       assert ulid2 != ulid1
     end
 
-    it 'is fully deterministic based on time and name' do
+    it 'is fully deterministic based on time and suffix' do
       input_time = Time.now
-      input_event = SecureRandom.uuid
-      ulid1 = ULID.generate(input_time, input_event)
-      ulid2 = ULID.generate(input_time, input_event)
+      suffix = SecureRandom.uuid
+      ulid1 = ULID.generate(input_time, suffix: suffix)
+      ulid2 = ULID.generate(input_time, suffix: suffix)
       assert_equal ulid2, ulid1
     end
 
-    it 'raises exception when non-encodable name string is used' do
+    it 'raises exception when non-encodable 80-bit suffix string is used' do
       input_time = Time.now
-      input_event = 'foobar'
+      suffix = SecureRandom.uuid
       assert_raises(ArgumentError) do
-        ULID.generate(input_time, input_event)
+        ULID.generate(input_time, suffix: suffix[0...9])
       end
+
+      ULID.generate(input_time, suffix: suffix[0...10])
     end
   end
 
@@ -94,8 +96,8 @@ describe ULID do
     end
 
     it 'encodes the remaining 80 bits as random' do
-      random_bytes = SecureRandom.random_bytes(ULID::Generator::RANDOM_BYTES)
-      ULID.stub(:random_bytes, random_bytes) do
+      random_bytes = SecureRandom.random_bytes(ULID::Generator::RANDOM_BITS / 8)
+      SecureRandom.stub(:random_bytes, random_bytes) do
         bytes = ULID.generate_bytes
         assert bytes[6..-1] == random_bytes
       end

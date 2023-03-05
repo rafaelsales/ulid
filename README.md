@@ -48,23 +48,27 @@ require 'ulid'
 ULID.generate # 01ARZ3NDEKTSV4RRFFQ69G5FAV
 ```
 
-You can optionally pass a `Time` instance to `generate` when generating a ULID to use for the timestamp prefix/component.
+**I want to generate a ULID using an arbitrary timestamp**
+
+You can optionally pass a `Time` instance to `ULID.generate` to set an arbitrary timestamp component, i.e. the prefix of the ULID.
 
 ```ruby
 time_t1 = Time.now
 ulid = ULID.generate(time_t1)
 ```
 
-You can optionally pass a hex-encodable `String` instance to `generate` as an event name for fully deterministic ULIDs. The `name` string will be encoded and used as the randomness suffix/component.
+**I want to generate a ULID using an arbitrary suffix, i.e. without the randomness component**
+
+You can optionally pass a 80-bit hex-encodable `String` on the argument `suffix` to `ULID.generate`. This will replace the randomness component
+by the suffix provided. This allows for fully deterministic ULIDs.
 
 ```ruby
 require 'securerandom'
 
 time = Time.now
-event_name = SecureRandom.uuid
-ulid = ULID.generate(nil, event_name)
-ulid1 = ULID.generate(time, event_name)
-ulid2 = ULID.generate(time, event_name)
+an_event_identifier = SecureRandom.uuid
+ulid1 = ULID.generate(time, suffix: an_event_identifier)
+ulid2 = ULID.generate(time, suffix: an_event_identifier)
 ulid1 == ulid2 # true
 ```
 
