@@ -6,7 +6,7 @@ describe ULID do
     it 'ensures it has 26 chars' do
       ulid = ULID.generate
 
-      ulid.length.must_equal 26
+      assert_equal ulid.length, 26
     end
 
     it 'is sortable' do
