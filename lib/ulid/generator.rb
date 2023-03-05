@@ -12,16 +12,17 @@ module ULID
     MASK = 0x1f
 
     # Generates a ULID string based on the given or current time.
-    def generate(time = Time.now)
-      input = octo_word(time)
+    def generate(time = Time.now, name = nil)
+      input = octo_word(time, name)
 
       encode(input, ENCODED_LENGTH)
     end
 
     # Generates a 128 bits string consisting of the first 48 bits being a timestamp
     # and the remaining 80 bits being random bytes.
-    def generate_bytes(time = Time.now)
-      time_48bit(time) + SecureRandom.random_bytes(RANDOM_BITS / 8)
+    def generate_bytes(time = Time.now, name = nil)
+      name_bytes = name.split('').map { |e| e.to_i(32) }.pack('C*') if name
+      time_48bit(time) + (name_bytes || random_bytes)
     end
 
     private
@@ -41,8 +42,11 @@ module ULID
     end
 
     # Combines the timestamp and random bytes into a 128-bit integer.
-    def octo_word(time = Time.now)
-      (hi, lo) = generate_bytes(time).unpack('Q>Q>')
+    def octo_word(time = Time.now, name = nil)
+      (hi, lo) = generate_bytes(time, name).unpack('Q>Q>')
+      if hi.nil? || lo.nil?
+        raise ArgumentError, 'name string without hex encoding passed to ULID generator'
+      end
       (hi << 64) | lo
     end
 
@@ -61,6 +65,10 @@ module ULID
       # => 1578207780002
       time_ms = (time.to_r * 1000).to_i
       [time_ms].pack('Q>')[2..-1]
+    end
+
+    def random_bytes
+      SecureRandom.random_bytes(RANDOM_BITS / 8)
     end
   end
 end
