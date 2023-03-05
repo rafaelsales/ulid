@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = %w[ulid.gemspec README.md CHANGELOG.md LICENSE] + `git ls-files | grep -E '^(lib)'`.split("\n")
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 2.6.8'
 end

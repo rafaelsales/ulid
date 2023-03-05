@@ -1,3 +1,8 @@
+# 1.4.0
+
+- PR #32 - Allow fully deterministic ULID generation by providing both the timestamp
+  component and a string suffix to replace the randomness component. Thanks @andjosh
+
 # 1.2.0
 
 - PR #20 - Use an array to improve speed / reduce memory allocations. Thanks, @jamescook
