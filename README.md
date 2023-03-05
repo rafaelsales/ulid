@@ -48,22 +48,6 @@ require 'ulid'
 ULID.generate # 01ARZ3NDEKTSV4RRFFQ69G5FAV
 ```
 
-You can optionally pass a `Time` instance to `generate` when generating a ULID to use for the timestamp prefix/component.
-
-```ruby
-time_t1 = Time.now
-ulid = ULID.generate(time_t1)
-```
-
-You can also decode the timestamp component of a ULID into a `Time` instance (to millisecond precision).
-
-```ruby
-time_t1 = Time.new(2022, 1, 4, 6, 3)
-ulid = ULID.generate(time_t1)
-time_t2 = ULID.decode_time(ulid)
-time_t2 == time_t1 # true
-```
-
 ## Specification
 
 Below is the current specification of ULID as implemented in this repository. *Note: the binary format has not been implemented.*
