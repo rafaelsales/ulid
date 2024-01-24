@@ -102,5 +102,37 @@ describe ULID do
         assert bytes[6..-1] == random_bytes
       end
     end
+
+    it 'converts a ULID string to binary and back' do
+      ulid = ULID.generate
+      binary = ULID.ulid_string_to_binary(ulid)
+      converted_ulid = ULID.binary_to_ulid_string(binary)
+      assert_equal ulid, converted_ulid
+    end
+
+    it 'raises an exception for invalid ULID string lengths' do
+      assert_raises(ArgumentError) do
+        ULID.ulid_string_to_binary('12345')
+      end
+    end
+
+    it 'raises an exception for invalid characters in ULID string' do
+      invalid_ulid = '0' * 25 + '!'
+      assert_raises(ArgumentError) do
+        ULID.ulid_string_to_binary(invalid_ulid)
+      end
+    end
+  end
+
+  describe 'conversion integrity' do
+    it 'maintains integrity through conversions' do
+      time = Time.now
+      suffix = SecureRandom.random_bytes(10) # 80 bits
+      original_ulid = ULID.generate(time, suffix: suffix.unpack1('H*'))
+      binary = ULID.ulid_string_to_binary(original_ulid)
+      regenerated_ulid = ULID.binary_to_ulid_string(binary)
+
+      assert_equal original_ulid, regenerated_ulid
+    end
   end
 end
