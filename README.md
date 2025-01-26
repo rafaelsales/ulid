@@ -1,3 +1,15 @@
+# 🚨 Please hold on
+
+**If you're starting a new project with a empty database, use UUID v7 instead.**
+
+**If you’re trying to address database slowness caused by non-time-ordered UUIDs, such as UUIDv4, consider using UUIDv7 instead.**
+
+➡️ Read more at:
+- https://uuid7.com
+- https://buildkite.com/resources/blog/goodbye-integers-hello-uuids/
+
+---
+
 ![Ruby](https://github.com/rafaelsales/ulid/workflows/Ruby/badge.svg)
 [![Gem Downloads](http://img.shields.io/gem/dt/ulid.svg)](https://rubygems.org/gems/ulid)
 [![GitHub License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/rafaelsales/ulid)
