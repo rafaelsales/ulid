@@ -2,7 +2,7 @@
 
 **If you're starting a new project with a empty database, use UUID v7 instead.**
 
-**If you’re trying to address database slowness caused by non-time-ordered UUIDs, such as UUIDv4, consider using UUIDv7 instead.**
+**If you’re trying to address database slowness caused by non-time-ordered UUIDs, such as UUIDv4, use UUIDv7 instead.**
 
 ➡️ Read more at:
 - https://uuid7.com
