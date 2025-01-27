@@ -84,6 +84,17 @@ ulid2 = ULID.generate(time, suffix: an_event_identifier)
 ulid1 == ulid2 # true
 ```
 
+**I want to decode the timestamp portion of an existing ULID value**
+
+You can also decode the timestamp component of a ULID into a `Time` instance (to millisecond precision).
+
+```ruby
+time_t1 = Time.new(2022, 1, 4, 6, 3)
+ulid = ULID.generate(time_t1)
+time_t2 = ULID.decode_time(ulid)
+time_t2 == time_t1 # true
+```
+
 ## Specification
 
 Below is the current specification of ULID as implemented in this repository. *Note: the binary format has not been implemented.*
